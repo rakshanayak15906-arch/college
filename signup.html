@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">Dr TMA Pai Polytechnic</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="courses.php">Courses</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="section">
+      <h2>Student Registration</h2>
+      <form method="POST" action="register.php">
+        <div id="page-alert" class="alert"></div>
+        <input type="text" name="first_name" placeholder="First name" required>
+        <input type="text" name="last_name" placeholder="Last name" required>
+        <input type="email" name="email" placeholder="Gmail address (example@gmail.com)" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="Please enter a valid Gmail address ending with @gmail.com" required>
+        <input type="password" name="password" placeholder="Password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$" title="Password must be at least 8 characters and include uppercase, lowercase, number, and special character." required>
+        <input type="tel" name="mobile" placeholder="Mobile number" pattern="^[0-9]{10}$" minlength="10" maxlength="10" inputmode="numeric" title="Mobile number must be exactly 10 digits." required>
+        <p style="margin:-4px 0 14px; color:#64748b; font-size:0.92rem;">Use a Gmail address. Password must be strong (8+ chars with upper, lower, number, special).</p>
+        <button type="submit" class="form-button">Register</button>
+      </form>
+      <p style="text-align:center; margin-top:16px; color:#475569;">Already registered? <a href="login.html">Login here</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Dr TMA Pai Polytechnic Manipal. All rights reserved.</p>
+  </footer>
+</body>
+</html>

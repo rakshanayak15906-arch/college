@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS courses (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  code VARCHAR(20) NOT NULL UNIQUE,
+  duration VARCHAR(50) NOT NULL,
+  description TEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Students table stores registration and login details for each student
+CREATE TABLE IF NOT EXISTS students (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(80) NOT NULL,
+  last_name VARCHAR(80) NOT NULL,
+  email VARCHAR(200) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  mobile VARCHAR(20) NOT NULL,
+  course_id INT DEFAULT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Sample course records
+INSERT INTO courses (name, code, duration, description)
+VALUES
+  ('Computer Science Engineering', 'CSE', '3 years', 'Software development, networking, and AI foundations.'),
+  ('Mechanical Engineering', 'ME', '3 years', 'Thermodynamics, design, and manufacturing systems.'),
+  ('Civil Engineering', 'CE', '3 years', 'Structural design, infrastructure, and construction practice.'),
+  ('Electrical Engineering', 'EE', '3 years', 'Power systems, circuits, and automation.'),
+  ('Electronics & Communication', 'ECE', '3 years', 'Signal processing, communication systems, and embedded electronics.'),
+  ('Automobile Engineering', 'AE', '3 years', 'Vehicle systems, automotive mechanics, and workshop training.');
