@@ -25,15 +25,37 @@ CREATE TABLE IF NOT EXISTS students (
   FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+-- Course applications table
+CREATE TABLE IF NOT EXISTS applications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  student_id INT NULL,
+  course_id INT NOT NULL,
+  student_name VARCHAR(160) NOT NULL,
+  parent_name VARCHAR(160) NOT NULL,
+  dob DATE NOT NULL,
+  gender VARCHAR(20) NOT NULL,
+  email VARCHAR(200) NOT NULL,
+  mobile VARCHAR(20) NOT NULL,
+  guardian_mobile VARCHAR(20) NOT NULL,
+  qualification VARCHAR(120) NOT NULL,
+  marks VARCHAR(40) NOT NULL,
+  address TEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
 -- Sample course records
 INSERT INTO courses (name, code, duration, description)
-VALUES
-  ('Computer Science Engineering', 'CSE', '3 years', 'Software development, networking, and AI foundations.'),
-  ('Mechanical Engineering', 'ME', '3 years', 'Thermodynamics, design, and manufacturing systems.'),
-  ('Civil Engineering', 'CE', '3 years', 'Structural design, infrastructure, and construction practice.'),
-  ('Electrical Engineering', 'EE', '3 years', 'Power systems, circuits, and automation.'),
-  ('Electronics & Communication', 'ECE', '3 years', 'Signal processing, communication systems, and embedded electronics.'),
-  ('Automobile Engineering', 'AE', '3 years', 'Vehicle systems, automotive mechanics, and workshop training.'),
-  ('Mechatronics', 'MCT', '3 years', 'Integrated mechanical, electronics, and control systems for smart automation.'),
-  ('Printing', 'PRN', '3 years', 'Printing technology, packaging processes, and production workflows.'),
-  ('Artificial Intelligence', 'AI', '3 years', 'Machine learning, data intelligence, and AI application development.');
+SELECT * FROM (
+  SELECT 'Computer Science Engineering' AS name, 'CSE' AS code, '3 years' AS duration, 'Software development, networking, and AI foundations.' AS description
+  UNION ALL SELECT 'Mechanical Engineering', 'ME', '3 years', 'Thermodynamics, design, and manufacturing systems.'
+  UNION ALL SELECT 'Civil Engineering', 'CE', '3 years', 'Structural design, infrastructure, and construction practice.'
+  UNION ALL SELECT 'Electrical Engineering', 'EE', '3 years', 'Power systems, circuits, and automation.'
+  UNION ALL SELECT 'Electronics & Communication', 'ECE', '3 years', 'Signal processing, communication systems, and embedded electronics.'
+  UNION ALL SELECT 'Automobile Engineering', 'AE', '3 years', 'Vehicle systems, automotive mechanics, and workshop training.'
+  UNION ALL SELECT 'Mechatronics', 'MCT', '3 years', 'Integrated mechanical, electronics, and control systems for smart automation.'
+  UNION ALL SELECT 'Printing', 'PRN', '3 years', 'Printing technology, packaging processes, and production workflows.'
+  UNION ALL SELECT 'Artificial Intelligence', 'AI', '3 years', 'Machine learning, data intelligence, and AI application development.'
+) AS seed
+WHERE NOT EXISTS (SELECT 1 FROM courses c WHERE c.code = seed.code);
